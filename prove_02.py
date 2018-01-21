@@ -11,6 +11,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import accuracy_score
 from collections import Counter
+from sklearn.neighbors import KNeighborsClassifier
 
 class kNNModel:
 	"""
@@ -130,4 +131,17 @@ print()
 
 # determine accuracy
 accuracy = accuracy_score(targets_predicted, target_test)
-print("Accuracy In Prediction: {:.2f}".format(accuracy))
+print("Accuracy In My Prediction: {:.2f}".format(accuracy))
+
+
+classifier_2 = KNeighborsClassifier(n_neighbors=7)
+model_2 = classifier_2.fit(data_train, target_train)
+predictions_2 = model_2.predict(data_test)
+
+print()
+print("other implementation or sklearn.neighbors")
+print(predictions_2)
+print()
+
+accuracy = accuracy_score(predictions_2, target_test)
+print("Accuracy In sklearn.neighbors Implimentations Prediction: {:.2f}".format(accuracy))
