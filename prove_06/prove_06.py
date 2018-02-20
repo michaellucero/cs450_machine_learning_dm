@@ -1,6 +1,6 @@
 """
 Author: Michael Lucero
-Assignment: Prove 4
+Assignment: Prove 06
 Purpose: 
 """
 
