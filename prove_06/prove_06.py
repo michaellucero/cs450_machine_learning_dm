@@ -23,8 +23,8 @@ def main():
     iris data
     """
     #get dataset iris
-    # iris = datasets.load_iris()
-    # data, targets = iris.data, iris.target
+#    iris = datasets.load_iris()
+#    data, targets = iris.data, iris.target
     
     # print("Data:")
     # print(data)
@@ -39,7 +39,7 @@ def main():
     Pima indians diabetes data
     """
     # Set file path and headers for data (add directory) 
-    file_path_pima = ""
+    file_path_pima = "pima-indians-diabetes.data.txt"
     headers_pima = ["Number of times pregnant", "Plasma glucose concentration a 2 hours in an oral glucose tolerance test", "Diastolic blood pressure (mm Hg)", "Triceps skin fold thickness (mm)", "2-Hour serum insulin (mu U/ml)", "Body mass index (weight in kg/(height in m)^2)", "Diabetes pedigree function", "Age (years)", "Class variable (0 or 1)"]
     
     # There are only numeric values
@@ -50,21 +50,26 @@ def main():
     # handle missing data 0 encoded by replacing with mean
     pima_df = dp.handle_missing_data_zero(pima_df)
 
-    # K-fold Cross Validation
-
     print(pima_df)
     print()
 
     # convert to numpy array
     pima_np = pima_df.as_matrix()
 
+    print(pima_np)
+
     #split into data and targets
     data, targets = pima_np[:, :-1], pima_np[:, -1]
 
 
+    #test = np.array([[0.4, 0.6, 'A'], [0.2, 0.1, 'B'], [0.3, 0.9, 'A'], [0.3, 0.2, 'B'], [0.4, 0.7, 'A'], [0.1, 0.1, 'B'], [0.6, 0.9, 'A'], [0.3, 0.2, 'B']])
+    #print("Test Data: ")
+    #print(test)
+    #print()
 
+    #data, targets = test[:, :-1], test[:, -1]
 
-    # #standardize data
+    #standardize data
     data = dp.data_standardization(data)
 
     # print("Data:")
@@ -80,29 +85,37 @@ def main():
 
     # create model with parameters it specify layer shape. [layer node list], with the length of being
     #   the number of hidden layers
-    classifier = NeuralNetClassifier([2, 3, 5, 1, 3])
+    classifier = NeuralNetClassifier([4], .1)
  
     # train model
-    model = classifier.fit(data, targets)
+    model = classifier.fit(data_train, target_train)
     
     # predict targets
-    # targets_predicted = model.predict(data_test)
+    targets_predicted = model.predict(data_test)
 
     # Display results
-    # print("Predicted Targets From my neural network Model:")
-    # print(targets_predicted)
-    # print()
+    print("Predicted Targets From my neural network Model:")
+    print(targets_predicted)
+    print()
 
-    # clf = MLPClassifier()
-    # model_sk = clf.fit(data, targets)
-    # targets_predicted = model_sk.predict(data)
-    # print("targets Predicted:")
-    # print(targets_predicted)
-    # print("targets:")
-    # print(target_test) 
+    #clf = MLPClassifier()
+    #model_sk = clf.fit(data_train, target_train)
+    #off_shelf_targets_predicted = model_sk.predict(data_test)
+    #print("off shelf targets Predicted:")
+    #print(off_shelf_targets_predicted)
+    print()
+    
+    print("Actual Targets:")
+    print(target_test)
+    print()
 
-    # accuracy = accuracy_score(targets_predicted, target_test)
-    # print("Accuracy In My Prediction: {:.2f}".format(accuracy))
+    #print(data_train)
+    #print(target_train)
+    accuracy = accuracy_score(targets_predicted, target_test)
+    print("Accuracy In My Prediction: {:.2f}".format(accuracy))
+    
+    #accuracy2 = accuracy_score(off_shelf_targets_predicted, target_test)
+    #print("Accuracy for off the shelf Prediction: {:.2f}".format(accuracy2))
 
     MLPClassifier()
 if __name__ == '__main__':
